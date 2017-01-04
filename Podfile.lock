@@ -1,0 +1,23 @@
+PODS:
+  - KZSmallVideoRecorder (1.0.5)
+  - Masonry (1.0.2)
+  - MBProgressHUD (0.9.2)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - KZSmallVideoRecorder (~> 1.0.4)
+  - Masonry
+  - MBProgressHUD (~> 0.9.2)
+  - SDWebImage (~> 3.7)
+
+SPEC CHECKSUMS:
+  KZSmallVideoRecorder: 9ee88511f039f2c5316a5f01665f87b4b666508d
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 09a60d0b60ed4e2be4f3515e3f80202430fb09c9
+
+COCOAPODS: 1.1.1
