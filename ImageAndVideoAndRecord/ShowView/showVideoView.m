@@ -646,8 +646,6 @@
 #pragma mark 🎱 显示照片
 - (void)addImageToshowCirclectionView:(NSArray*)imageArray{
     
-
-    
     circleCollectionView.hidden = NO;
     
     CGFloat circleCollectionHeight = 60;
@@ -782,7 +780,6 @@
         }
         
     }else{  //第一次添加照片
-        
         
         photoNumber = photoNumber + imageArray.count;
         

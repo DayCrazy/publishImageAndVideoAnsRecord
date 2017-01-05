@@ -35,7 +35,7 @@
         addBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 52)];
         addBtn.hidden = YES;
         [self addSubview:addBtn];
-        [addBtn addTarget:[self getParentviewController] action:@selector(addImageButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn addTarget:[self getParentviewController] action:@selector(chooseTableImageWay:) forControlEvents:UIControlEventTouchUpInside];
         
         videoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 52)];
         
@@ -53,20 +53,27 @@
     _model = model;
     photo.image = model.photoImage;
     if (model.state == CirModelStateAdd) {
+        
         addBtn.hidden = NO;
         videoBtn.hidden = YES;
         [deleteBtn removeFromSuperview];
         [deleteImageView removeFromSuperview];
+        
     }else if(model.state == CirModelStateVideo){
+        
         addBtn.hidden = YES;
         videoBtn.hidden = NO;
         [deleteBtn removeFromSuperview];
         [deleteImageView removeFromSuperview];
+        
     }else{
+        
         addBtn.hidden = YES;
         videoBtn.hidden = YES;
+        [deleteBtn removeFromSuperview];
         [self addSubview:deleteBtn];
         [self addSubview:deleteImageView];
+        
     }
 }
 
@@ -81,20 +88,5 @@
     }
 }
 
-
-//获得视图的父控制器
-- (UIViewController *)getParentviewController{
-    for (UIView *next = [self superview];next;next = next.superview) {
-        
-        UIResponder *nextResponder = [next nextResponder];
-        
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            
-            return (UIViewController *)nextResponder;
-            
-        }
-    }
-    return nil;
-}
 
 @end

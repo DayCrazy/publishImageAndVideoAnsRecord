@@ -12,12 +12,15 @@
 #import "CircleCollectionViewCell.h"
 #import "CircleCellModel.h"
 
-@interface CircleCollectionView (){
+#import "ZZBrowserPickerViewController.h"
+
+@interface CircleCollectionView ()<ZZBrowserPickerDelegate>{
     
     UIImageView *deleteImageView;
     UIButton *deleteBtn;
     NSMutableArray *deleteImageViewArray;
     NSUInteger _dataSourceNum;
+    NSMutableArray* ShowImageArray;
 }
 
 @end
@@ -67,15 +70,58 @@ static int deletePhotoTag;
     [cell addGestureRecognizer:longPress];
     
     CircleCellModel *model = self.photoArray[indexPath.row];
+    
+    cell.deleteState = CirModelStateNormal;
 
     cell.model = model;
 
     return cell;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    ZZBrowserPickerViewController *browserController = [[ZZBrowserPickerViewController alloc]init];
+    browserController.delegate = self;
+    [browserController showIn:[self getParentviewController] animation:ShowAnimationOfPush];
+    
+    ShowImageArray = [[NSMutableArray alloc]init];
+    
+    for (CircleCellModel *model  in _photoArray) {
+        
+        if (model.state == CirModelStateNormal) {
+            
+            UIImage* image = model.photoImage;
+            
+            [ShowImageArray addObject:image];
+            
+        }
+    }
+}
+
+#pragma mark 🎱 --- ZZBrowserPickerDelegate
+-(NSInteger)zzbrowserPickerPhotoNum:(ZZBrowserPickerViewController *)controller
+{
+    return ShowImageArray.count;
+}
+
+-(NSArray *)zzbrowserPickerPhotoContent:(ZZBrowserPickerViewController *)controller
+{
+
+    return ShowImageArray;
+}
+
+
+
+
 
 -(void)longPressAction{
-    NSLog(@"长摁");
+//    NSLog(@"长摁");
     NSArray *cellArray = [self visibleCells];
     for (CircleCollectionViewCell *cell in cellArray) {
         cell.deleteState = CirDeleteBtnStateEditing;
@@ -98,16 +144,6 @@ static int deletePhotoTag;
     [self reloadData];
     
 }
-
-//- (UIViewController*)viewController {
-//    for (UIView* next = [self superview]; next; next = next.superview) {
-//        UIResponder* nextResponder = [next nextResponder];
-//        if ([nextResponder isKindOfClass:[CircleReleaseVC class]]) {
-//            return (UIViewController*)nextResponder;
-//        }
-//    }
-//    return nil;  
-//}
 
 - (void)addItemsWithModels:(NSArray<__kindof CircleCellModel *> *)models{
     _dataSourceNum = _photoArray.count;

@@ -262,6 +262,7 @@
         if (textView.text.length>0) {
             
             [showVideo.addRecordButton setImage:[UIImage imageNamed:@"second_sounding_s"] forState:UIControlStateNormal];
+            showVideo.addRecordButton.enabled = NO;
             
             if (textView.text.length > 140){
                 // 删除
@@ -269,8 +270,12 @@
                 [MBProgressHUD showError:@"最多输入140个字符"];
                 
             }
+        }else{
+            showVideo.addRecordButton.enabled = YES;
+
+            [showVideo.addRecordButton setImage:[UIImage imageNamed:@"second_sounding_d"] forState:UIControlStateNormal];
+
         }
-        
         
     }
 }
