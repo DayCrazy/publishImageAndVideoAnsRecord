@@ -1,5 +1,8 @@
 # ImageAndVideoAnsRecord
 
+效果图
+
+![](/Users/lidanyang/Desktop/ImageAndVideoAndRecord/ImageGif.gif)
 
 ##import "ViewController.m"
  	PlaceholderTextView* titleTexView;  // placeHolder的textView，
@@ -589,3 +592,4 @@
     NSLog(@"mp3FilePath :: :::::≥≥≥®%@",mp3FilePath);
     return  mp3FilePath;
     }
+
