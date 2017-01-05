@@ -489,7 +489,7 @@ static KZVideoViewController *__currentVideoVC = nil;
     _assetWriter = [AVAssetWriter assetWriterWithURL:assetUrl fileType:AVFileTypeQuickTimeMovie error:nil];
     int videoWidth = [KZVideoConfig defualtVideoSize].width;
     int videoHeight = [KZVideoConfig defualtVideoSize].height;
-    /*
+    
     NSDictionary *videoCleanApertureSettings = @{
                                                AVVideoCleanApertureWidthKey:@(videoHeight),
                                                AVVideoCleanApertureHeightKey:@(videoWidth),
@@ -503,11 +503,11 @@ static KZVideoViewController *__currentVideoVC = nil;
     NSDictionary *codecSettings = @{
                                     AVVideoAverageBitRateKey:@(960000),
                                     AVVideoMaxKeyFrameIntervalKey:@(1),
-                                    AVVideoProfileLevelKey:AVVideoProfileLevelH264Main30,
+                                    AVVideoProfileLevelKey:AVVideoProfileLevelH264Baseline31,
                                     AVVideoCleanApertureKey: videoCleanApertureSettings,
                                     AVVideoPixelAspectRatioKey:videoAspectRatioSettings
                                     };
-     */
+    
     NSDictionary *outputSettings = @{
                           AVVideoCodecKey : AVVideoCodecH264,
                           AVVideoWidthKey : @(videoHeight),

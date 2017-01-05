@@ -1,12 +1,6 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## KZSmallVideoRecorder
-
-LICENSE
-Created by HouKangzhu on 16/7/26.
-Copyright © 2016年 侯康柱. All rights reserved.
-
 ## MBProgressHUD
 
 Copyright (c) 2009-2015 Matej Bukovinski

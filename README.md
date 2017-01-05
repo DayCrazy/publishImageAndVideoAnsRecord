@@ -30,93 +30,7 @@
   #pragma mark 🎱 发布前检查数据
   包括各种视频、照片、语音的收集，方便上传服务器
 
-	- (BOOL)collectModelInformation{
-     if (titleTexView.text.length == 0) {
-        
-        [MBProgressHUD showError:@"请填写标题"];
-        
-        return  NO;
-        }else if (contentTextView.text.length == 0){
-        
-        [MBProgressHUD showError:@"请填写商品价格"];
-        
-        return NO;
-         }else if (showVideo.imgeArray.count == 0 ){
-        
-        [MBProgressHUD showError:@"请至少上传一张照片"];
-        
-        return NO;
-         }else{
-        
-        
-        //处理准备上传照片
-        for (int i = 0; i< showVideo.imgeArray.count; i++) {
-            
-            UIImage* image;
-            
-            NSString* fileName;
-            
-            NSString* name;
-            
-            if ([showVideo.imgeArray[i] isKindOfClass:[ZZPhoto class]]) {
-                
-                ZZPhoto* model = showVideo.imgeArray[i];
-                
-                image = model.originImage;
-                
-                NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
-                dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
-                
-                fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
-                
-            }else if([showVideo.imgeArray[i] isKindOfClass:[ZZCamera class]]){
-                
-                ZZCamera* model = showVideo.imgeArray[i];
-                
-                image = model.image;
-                
-                NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
-                dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
-                
-                fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
-                
-            }else{
-                
-                UIImage* tempImage = showVideo.imgeArray[i];
-                
-                image = tempImage;
-                
-                fileName = [NSString stringWithFormat:@"goodsImageFielName%d.jpg",i];
-                
-            }
-            
-            name = [NSString stringWithFormat:@"GoodsImage%d.jpg",i];
-            
-            NSData *imageData = UIImageJPEGRepresentation(image,0.7);
-            
-            NSDictionary* dic = @{@"fileData":imageData,@"name":name,@"fileName":fileName,@"mimeType":@"image/jpg"};
-            [_imageUrlArray addObject:dic];
-            
-        }
-        
-        if(showVideo.videoModel){
-            
-            //处理准备上传视频
-            NSURL* url = [NSURL fileURLWithPath:showVideo.videoModel.videoAbsolutePath];
-            NSData* videoData = [NSData dataWithContentsOfURL:url];
-            
-            if (videoData) {
-                
-                NSDictionary* dic = @{@"fileData":videoData,@"name":@"GoodsVideo",@"fileName":@"GoodsVideo.mp4",@"mimeType":@"video/mp4"};
-                [_imageUrlArray addObject:dic];
-            }
-        }
-        
-        
-        return YES;
-    }
-    
-}
+	- (BOOL)collectModelInformation
 
 
 ##import "showVideoView.h"
@@ -143,57 +57,7 @@
  默认6张，可以修改
  
 	
-	- (void)addImageButtonAction:(UIButton*)sender{
-    
-    superViewController = [self getViewController];
-    
-    UIAlertController* alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction* cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    UIAlertAction* takePhotoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        ZZCameraController *cameraController = [[ZZCameraController alloc]init];
-        cameraController.takePhotoOfMax = 6;
-        
-        cameraController.isSaveLocal = NO;
-        [cameraController showIn:[self getParentviewController] result:^(id responseObject){
-            
-            NSLog(@"%@",responseObject);
-            NSArray *array = (NSArray *)responseObject;
-            
-            [self addImageToshowCirclectionView:array];
-            [circleCollectionView reloadData];
-            
-        }];
-        
-    }];
-    
-    UIAlertAction* choosePictureAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        ZZPhotoController *photoController = [[ZZPhotoController alloc]init];
-        photoController.selectPhotoOfMax = 6;
-        //设置相册中完成按钮旁边小圆点颜色。
-        photoController.roundColor = [UIColor purpleColor];
-        
-        [photoController showIn:[self getParentviewController]result:^(id responseObject){
-            
-            NSArray *array = (NSArray *)responseObject;
-            [self addImageToshowCirclectionView:array];
-            
-            [circleCollectionView reloadData];
-            
-        }];
-    }];
-    
-    [alertVC addAction:cancleAction];
-    [alertVC addAction:takePhotoAction];
-    [alertVC addAction:choosePictureAction];
-    
-    [[self getParentviewController] presentViewController:alertVC animated:YES completion:nil];
-    
-
-}
+	- (void)addImageButtonAction:(UIButton*)sender
 
  #pragma mark 🎱 显示照片
  
@@ -592,4 +456,5 @@
     NSLog(@"mp3FilePath :: :::::≥≥≥®%@",mp3FilePath);
     return  mp3FilePath;
     }
+
 

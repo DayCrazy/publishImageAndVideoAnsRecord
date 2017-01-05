@@ -11,7 +11,7 @@
 
 #import "CircleCollectionViewCell.h"
 #import "CircleCellModel.h"
-
+#import "UIView+Size.h"
 #import "ZZBrowserPickerViewController.h"
 
 @interface CircleCollectionView ()<ZZBrowserPickerDelegate>{

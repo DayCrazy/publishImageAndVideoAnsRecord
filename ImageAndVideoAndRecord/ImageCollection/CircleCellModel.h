@@ -8,7 +8,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 typedef enum : NSUInteger{
     CirModelStateNormal = 0,
     CirModelStateAdd = 1,

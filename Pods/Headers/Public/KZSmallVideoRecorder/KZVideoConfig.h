@@ -1,1 +1,0 @@
-../../../KZSmallVideoRecorder/KZSmallVideoRecorder/KZVideoConfig.h

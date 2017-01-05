@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>KZSmallVideoRecorder.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,22 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>452ACB8EAA6632B0F60A130DBB1C9EEE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8A97AABA2468E5959DCB5982531A6F76</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>982DEAF27F624AB33393DCF9AB29FF07</key>
+		<key>86702D87D2D6460E82E6F28B8242DD31</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AA14C485126741ABDD5FF86BABA6E476</key>
 		<dict>
 			<key>primary</key>
 			<true/>

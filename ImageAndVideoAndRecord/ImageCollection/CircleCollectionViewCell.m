@@ -7,7 +7,7 @@
 //
 
 #import "CircleCollectionViewCell.h"
-
+#import "UIView+Size.h"
 
 
 @implementation CircleCollectionViewCell

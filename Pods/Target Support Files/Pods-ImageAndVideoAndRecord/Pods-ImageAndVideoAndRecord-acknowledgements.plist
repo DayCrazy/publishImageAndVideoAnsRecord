@@ -14,18 +14,6 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>LICENSE
-Created by HouKangzhu on 16/7/26.
-Copyright © 2016年 侯康柱. All rights reserved.</string>
-			<key>License</key>
-			<string>MIT</string>
-			<key>Title</key>
-			<string>KZSmallVideoRecorder</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>Copyright (c) 2009-2015 Matej Bukovinski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

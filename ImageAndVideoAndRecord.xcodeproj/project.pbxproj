@@ -76,6 +76,13 @@
 		8829A5E61E1CF1010023362D /* ZZPhotoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5C01E1CF1010023362D /* ZZPhotoListCell.m */; };
 		8829A5E71E1CF1010023362D /* ZZPhotoPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5C21E1CF1010023362D /* ZZPhotoPickerCell.m */; };
 		8829A5EB1E1CF5350023362D /* UIView+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5EA1E1CF5350023362D /* UIView+Size.m */; };
+		88C7C78F1E1E4587005CE0A2 /* KZVideoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7841E1E4587005CE0A2 /* KZVideoConfig.m */; };
+		88C7C7901E1E4587005CE0A2 /* KZVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7861E1E4587005CE0A2 /* KZVideoListViewController.m */; };
+		88C7C7911E1E4587005CE0A2 /* KZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7881E1E4587005CE0A2 /* KZVideoPlayer.m */; };
+		88C7C7921E1E4587005CE0A2 /* KZVideoSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C78A1E1E4587005CE0A2 /* KZVideoSupport.m */; };
+		88C7C7931E1E4587005CE0A2 /* KZVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C78C1E1E4587005CE0A2 /* KZVideoViewController.m */; };
+		88C7C7941E1E4587005CE0A2 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 88C7C78D1E1E4587005CE0A2 /* LICENSE */; };
+		88C7C7951E1E4587005CE0A2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C78E1E1E4587005CE0A2 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +220,18 @@
 		8829A5C31E1CF1010023362D /* ZZPhotoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPhotoKit.h; sourceTree = "<group>"; };
 		8829A5E91E1CF5350023362D /* UIView+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Size.h"; sourceTree = "<group>"; };
 		8829A5EA1E1CF5350023362D /* UIView+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Size.m"; sourceTree = "<group>"; };
+		88C7C7831E1E4587005CE0A2 /* KZVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoConfig.h; sourceTree = "<group>"; };
+		88C7C7841E1E4587005CE0A2 /* KZVideoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoConfig.m; sourceTree = "<group>"; };
+		88C7C7851E1E4587005CE0A2 /* KZVideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoListViewController.h; sourceTree = "<group>"; };
+		88C7C7861E1E4587005CE0A2 /* KZVideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoListViewController.m; sourceTree = "<group>"; };
+		88C7C7871E1E4587005CE0A2 /* KZVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoPlayer.h; sourceTree = "<group>"; };
+		88C7C7881E1E4587005CE0A2 /* KZVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoPlayer.m; sourceTree = "<group>"; };
+		88C7C7891E1E4587005CE0A2 /* KZVideoSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoSupport.h; sourceTree = "<group>"; };
+		88C7C78A1E1E4587005CE0A2 /* KZVideoSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoSupport.m; sourceTree = "<group>"; };
+		88C7C78B1E1E4587005CE0A2 /* KZVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoViewController.h; sourceTree = "<group>"; };
+		88C7C78C1E1E4587005CE0A2 /* KZVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoViewController.m; sourceTree = "<group>"; };
+		88C7C78D1E1E4587005CE0A2 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		88C7C78E1E1E4587005CE0A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		97E234052266FA0154283831 /* Pods-ImageAndVideoAndRecord.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageAndVideoAndRecord.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageAndVideoAndRecord/Pods-ImageAndVideoAndRecord.release.xcconfig"; sourceTree = "<group>"; };
 		9E0DA3B1507BBF8132BB1639 /* libPods-ImageAndVideoAndRecord.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImageAndVideoAndRecord.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE0396BDF5D191BEBE26A265 /* Pods-ImageAndVideoAndRecord.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageAndVideoAndRecord.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageAndVideoAndRecord/Pods-ImageAndVideoAndRecord.debug.xcconfig"; sourceTree = "<group>"; };
@@ -284,6 +303,7 @@
 				8829A53C1E1CEBBB0023362D /* ShowView */,
 				8829A5381E1CEB840023362D /* PlaceholderTextView */,
 				8829A52E1E1CEB760023362D /* ImageCollection */,
+				88C7C7811E1E4587005CE0A2 /* KZSmallVideoRecorder */,
 				8829A5071E1CEA2B0023362D /* Assets.xcassets */,
 				8829A5091E1CEA2B0023362D /* LaunchScreen.storyboard */,
 				8829A50C1E1CEA2B0023362D /* Info.plist */,
@@ -644,6 +664,33 @@
 			path = "UIView+";
 			sourceTree = "<group>";
 		};
+		88C7C7811E1E4587005CE0A2 /* KZSmallVideoRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				88C7C7821E1E4587005CE0A2 /* KZSmallVideoRecorder */,
+				88C7C78D1E1E4587005CE0A2 /* LICENSE */,
+				88C7C78E1E1E4587005CE0A2 /* README.md */,
+			);
+			path = KZSmallVideoRecorder;
+			sourceTree = "<group>";
+		};
+		88C7C7821E1E4587005CE0A2 /* KZSmallVideoRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				88C7C7831E1E4587005CE0A2 /* KZVideoConfig.h */,
+				88C7C7841E1E4587005CE0A2 /* KZVideoConfig.m */,
+				88C7C7851E1E4587005CE0A2 /* KZVideoListViewController.h */,
+				88C7C7861E1E4587005CE0A2 /* KZVideoListViewController.m */,
+				88C7C7871E1E4587005CE0A2 /* KZVideoPlayer.h */,
+				88C7C7881E1E4587005CE0A2 /* KZVideoPlayer.m */,
+				88C7C7891E1E4587005CE0A2 /* KZVideoSupport.h */,
+				88C7C78A1E1E4587005CE0A2 /* KZVideoSupport.m */,
+				88C7C78B1E1E4587005CE0A2 /* KZVideoViewController.h */,
+				88C7C78C1E1E4587005CE0A2 /* KZVideoViewController.m */,
+			);
+			path = KZSmallVideoRecorder;
+			sourceTree = "<group>";
+		};
 		C85FC96A44573FB2EF362570 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -783,6 +830,7 @@
 				8829A5D11E1CF1010023362D /* take_photo_pic@2x.png in Resources */,
 				8829A56E1E1CEBD60023362D /* toast_vol_2@2x.png in Resources */,
 				8829A5CA1E1CF1010023362D /* flash_open_pic.png in Resources */,
+				88C7C7941E1E4587005CE0A2 /* LICENSE in Resources */,
 				8829A5CD1E1CF1010023362D /* remove_btn_pic.png in Resources */,
 				8829A5CF1E1CF1010023362D /* select_yes.png in Resources */,
 				8829A5C71E1CF1010023362D /* camera_focus_pic.png in Resources */,
@@ -873,8 +921,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8829A5D81E1CF1010023362D /* ZZCameraController.m in Sources */,
+				88C7C78F1E1E4587005CE0A2 /* KZVideoConfig.m in Sources */,
 				8829A5361E1CEB760023362D /* CircleCollectionView.m in Sources */,
 				8829A5DC1E1CF1010023362D /* ZZCameraPickerCell.m in Sources */,
+				88C7C7911E1E4587005CE0A2 /* KZVideoPlayer.m in Sources */,
 				8829A5EB1E1CF5350023362D /* UIView+Size.m in Sources */,
 				8829A53B1E1CEB840023362D /* PlaceholderTextView.m in Sources */,
 				8829A5681E1CEBD60023362D /* LGAudioPlayer.m in Sources */,
@@ -892,7 +942,9 @@
 				8829A5001E1CEA2B0023362D /* AppDelegate.m in Sources */,
 				8829A53F1E1CEBBB0023362D /* showVideoView.m in Sources */,
 				8829A4FD1E1CEA2B0023362D /* main.m in Sources */,
+				88C7C7901E1E4587005CE0A2 /* KZVideoListViewController.m in Sources */,
 				8829A5DF1E1CF1010023362D /* ZZPhotoListViewController.m in Sources */,
+				88C7C7951E1E4587005CE0A2 /* README.md in Sources */,
 				8829A5E31E1CF1010023362D /* ZZPhotoListModel.m in Sources */,
 				8829A5DD1E1CF1010023362D /* ZZPhotoBrowerViewController.m in Sources */,
 				8829A5D51E1CF1010023362D /* ZZBrowserPickerViewController.m in Sources */,
@@ -900,11 +952,13 @@
 				8829A5351E1CEB760023362D /* CircleCellModel.m in Sources */,
 				8829A5E21E1CF1010023362D /* ZZPhotoDatas.m in Sources */,
 				8829A5741E1CEBD60023362D /* amrFileCodec.m in Sources */,
+				88C7C7931E1E4587005CE0A2 /* KZVideoViewController.m in Sources */,
 				8829A5DA1E1CF1010023362D /* ZZCamera.m in Sources */,
 				8829A5E01E1CF1010023362D /* ZZPhotoPickerViewController.m in Sources */,
 				8829A5C41E1CF1010023362D /* UIImageHandle.m in Sources */,
 				8829A5D91E1CF1010023362D /* ZZCameraPickerViewController.m in Sources */,
 				8829A5DB1E1CF1010023362D /* ZZCameraFocusView.m in Sources */,
+				88C7C7921E1E4587005CE0A2 /* KZVideoSupport.m in Sources */,
 				8829A5D71E1CF1010023362D /* ZZCameraBrowerViewController.m in Sources */,
 				8829A5E41E1CF1010023362D /* ZZPhotoAlert.m in Sources */,
 				8829A5E71E1CF1010023362D /* ZZPhotoPickerCell.m in Sources */,
@@ -1058,6 +1112,7 @@
 				DEVELOPMENT_TEAM = 6P6AU364B7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1077,6 +1132,7 @@
 				DEVELOPMENT_TEAM = 6P6AU364B7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -656,19 +656,18 @@
         photoNumber = photoNumber + imageArray.count;
         
         [self deleteAddPhotoButton];
-        //        [self delete_addVideoButton];
         
         //没有视频就是3张照片，若有视频就是2张
         if (photoNumber > 3) { // circleCollection变两行，刷新tableview
             
-//            superViewController.photoHeight = 220;
-            
             circleCollectionHeight = collectionViewHeight*2;
             
-            self.height = self.height + collectionViewHeight;
-            
-//            [self changeSuperScrollViewContentSize:self.height];
-            
+            if (photoNumber - imageArray.count < 4) {
+                
+                self.height = self.height + collectionViewHeight;
+                
+            }
+        
             if (photoNumber >= 6) {  //多次添加照片总数超过限制，截取7-self.imgeArray.count个元素拼接
                 
                 NSRange range = NSMakeRange(0, 6 - circleCollectionView.photoArray.count);
@@ -900,20 +899,20 @@
 
 #pragma mark 🎱 视频录制或选择后回调
 - (void)videoViewController:(KZVideoViewController *)videoController didRecordVideo:(KZVideoModel *)videoModel{
-    
-//    [self refreshButtonFrame];
-    
-//    _addVideoButton.hidden = YES;
-    
-//    [self delete_addVideoButton];
+
     
     [circleCollectionView reloadData];
+    
+    NSURL* videoUrl = [NSURL URLWithString:videoModel.videoAbsolutePath];
+    
+    [self movFileTransformToMP4WithSourceUrl:videoUrl completion:^(NSString *Mp4FilePath) {
+        
+        videoModel.videoAbsolutePath = Mp4FilePath;
+    }];
     
     _videoModel = videoModel;
     
     [self playerVideo:videoModel];
-    
-    
     
 }
 
@@ -1088,36 +1087,6 @@
 }
 
 
-
-//- (void)chanageCircleCollectonFrame{
-//    
-//    if (circleCollectionView.hidden == NO) {
-//        
-//        if (_addRecordButton.hidden && _addVideoButton.hidden && addImageButton.hidden) {  //下面按钮全部隐藏
-//            
-//            [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                
-//                make.bottom.equalTo(self.mas_bottom);
-//            }];
-//            
-////            self.height = self.height+circleCollectionView.height-53;
-//            
-//        }else{
-//            
-//            
-//            [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                
-//                make.bottom.equalTo(self.mas_bottom).offset(-52);
-//            }];
-//            
-//            
-////            self.height = self.height+circleCollectionView.height;
-//
-//        }
-//    }
-//    
-//}
-
 #pragma mark 🎱 获取父视图
 - (ViewController*)getViewController
 {
@@ -1136,7 +1105,59 @@
     return nil;
 }
 
+#pragma mark 🎱 mov格式转MP4
+- (void)movFileTransformToMP4WithSourceUrl:(NSURL *)sourceUrl completion:(void(^)(NSString *Mp4FilePath))comepleteBlock
+{
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:sourceUrl options:nil];
+    
+    NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
+    
+    if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality])
+        
+    {
+        
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]initWithAsset:avAsset presetName:AVAssetExportPresetLowQuality];
+        
+        exportSession.outputURL = sourceUrl;
+        
+        exportSession.outputFileType = AVFileTypeMPEG4;
+        
+        CMTime start = CMTimeMakeWithSeconds(1.0, 600);
+        
+        CMTime duration = CMTimeMakeWithSeconds(3.0, 600);
+        
+        CMTimeRange range = CMTimeRangeMake(start, duration);
+        
+        exportSession.timeRange = range;
+        
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            
+            switch ([exportSession status]) {
+                    
+                case AVAssetExportSessionStatusFailed:
+                    NSLog(@"Export failed: %@", [[exportSession error] localizedDescription]);
+                    
+                    break;
+                    
+                case AVAssetExportSessionStatusCancelled:
+                    
+                    NSLog(@"Export canceled");
+                    
+                    break;
+                    
+                default:
+                    
+                    break;
+                    
+            }
+            
+        }];
+        
+    }
+}
 
+
+#pragma mark 🎱 caf转mp3
 - (NSString*)formatConversionToMp3{
     
     NSString *cafFilePath = self.messageModel.soundFilePath;    //caf文件路径
@@ -1158,8 +1179,12 @@
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
-        lame_set_VBR(lame, vbr_default);
+        lame_set_num_channels(lame, 2);//设置1为单通道，默认为2双通道
+        lame_set_in_samplerate(lame, 8000.0);//11025.0
+        //lame_set_VBR(lame, vbr_default);
+        lame_set_brate(lame, 16);
+        lame_set_mode(lame, 3);
+        lame_set_quality(lame, 2);
         lame_init_params(lame);
         
         do {
