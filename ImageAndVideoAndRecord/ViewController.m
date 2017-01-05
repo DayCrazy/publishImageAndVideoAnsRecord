@@ -19,7 +19,6 @@
 @interface ViewController ()<UITextViewDelegate>{
     
     UIScrollView* showScrollView;
-    
     PlaceholderTextView* titleTexView;
     PlaceholderTextView* contentTextView;
     showVideoView* showVideo;

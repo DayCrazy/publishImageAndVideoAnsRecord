@@ -43,6 +43,10 @@
 @property (nonatomic, weak) NSTimer *timerOf60Second;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
+@property (nonatomic, assign)    BOOL isVideo;
+@property (nonatomic, assign)    BOOL isPhoto;
+@property (nonatomic, assign)    BOOL isRecord;
+
 @end
 
 @implementation showVideoView{
@@ -606,8 +610,7 @@
     
     NSLog(@"recorder sound file path %@",self.messageModel.soundFilePath);
     
-//    self.messageModel.mp3FilePath = [self formatConversionToMp3];
-    self.messageModel.mp3FilePath = [self audio_PCMtoMP3];
+    self.messageModel.mp3FilePath = [self formatConversionToMp3];
 
     
     playButton = [[UIButton alloc]initWithFrame:CGRectMake(12, 0, kScreenWidth-24, 52)];
@@ -1192,147 +1195,6 @@
     return  mp3FilePath;
 }
 
-
-- (NSString*)audio_PCMtoMP3
-{
-    
-    NSString *cafFilePath = self.messageModel.soundFilePath;    //caf文件路径
-    
-    NSString* fileName = [NSString stringWithFormat:@"/voice-%5.2f.mp3", [[NSDate date] timeIntervalSince1970] ];//存储mp3文件的路径
-    
-    NSString *mp3FileName = [[DocumentPath stringByAppendingPathComponent:@"SoundFile"] stringByAppendingPathComponent:fileName];
-
-    
-    @try {
-        int read, write;
-        
-        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
-        fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
-        FILE *mp3 = fopen([mp3FileName cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
-        
-        const int PCM_SIZE = 8192;
-        const int MP3_SIZE = 8192;
-        short int pcm_buffer[PCM_SIZE*2];
-        unsigned char mp3_buffer[MP3_SIZE];
-        
-        lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
-        lame_set_VBR(lame, vbr_default);
-        lame_init_params(lame);
-        
-        do {
-            read = fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
-            if (read == 0)
-            write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
-            else
-            write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
-            
-            fwrite(mp3_buffer, write, 1, mp3);
-            
-        } while (read != 0);
-        
-        lame_close(lame);
-        fclose(mp3);
-        fclose(pcm);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
-    }
-    @finally {
-//        self.audioFileSavePath = mp3FilePath;
-        NSLog(@"MP3生成成功: %@",mp3FileName);
-    }
-    
-    return mp3FileName;
-}
-
-
-#pragma mark 🎱 刷新
-//- (void)refreshButtonFrame{
-//
-//    if (isRecord) {
-//
-//        self.height = self.height + 62;
-//
-//        if (isVideo) {
-//
-//            [playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(_player.mas_bottom).offset(10);
-//            }];
-//        }else{
-//            
-//            [playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(self.mas_top);
-//            }];
-//        }
-//        
-//        if (!circleCollectionView.hidden) {
-//            
-//            [circleCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(playButton.mas_bottom).offset(10);
-//            }];
-//            
-//        }
-//        
-//        _addRecordButton.hidden = YES;
-//        
-//    }else{
-//        
-//        self.height = self.height - 62;
-//        
-//        _addRecordButton.hidden = NO;
-//        
-//    }
-//    
-//    if (isPhoto) {
-//        
-//        self.height = self.height + circleCollectionView.height;
-//        
-//        if (isVideo) {
-//            
-//            [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(_player.mas_bottom).offset(10);
-//            }];
-//        }
-//        
-//        if (isRecord) {
-//            
-//            [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(playButton.mas_bottom).offset(10);
-//            }];
-//            
-//        }
-//        
-//        [_addVideoButton mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(addImageButton.mas_left);
-//        }];
-//        
-//        addImageButton.hidden = YES;
-//        
-//        
-//    }
-//    
-//    if (isVideo){
-//        
-//        self.height = self.height + 80;
-//        
-//        [_addRecordButton mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(_addVideoButton.mas_left);
-//        }];
-//        
-//        if (isRecord) {
-//            
-//            [playButton mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(_player.mas_bottom).offset(10);
-//            }];
-//        }
-//        
-//        
-//        _addVideoButton.hidden = YES;
-//    }
-//    
-////    superViewController.showScrollView.contentSize = CGSizeMake(kScreenWidth, self.bottom);
-//}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

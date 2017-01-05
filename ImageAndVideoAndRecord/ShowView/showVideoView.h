@@ -25,9 +25,7 @@
 
 @property (nonatomic,strong)LGMessageModel *messageModel;
 
-@property (nonatomic, assign)    BOOL isVideo;
-@property (nonatomic, assign)    BOOL isPhoto;
-@property (nonatomic, assign)    BOOL isRecord;
+
 
 @property (nonatomic, strong) UIButton* addImageButton;
 @property (nonatomic, strong) UIButton* addVideoButton;
