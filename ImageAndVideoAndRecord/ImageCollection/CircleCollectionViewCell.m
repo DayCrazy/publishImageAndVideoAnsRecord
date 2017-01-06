@@ -35,7 +35,7 @@
         addBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 52)];
         addBtn.hidden = YES;
         [self addSubview:addBtn];
-        [addBtn addTarget:[self getParentviewController] action:@selector(chooseTableImageWay:) forControlEvents:UIControlEventTouchUpInside];
+        [addBtn addTarget:[self getParentviewController] action:@selector(addImageButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         
         videoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 52)];
         

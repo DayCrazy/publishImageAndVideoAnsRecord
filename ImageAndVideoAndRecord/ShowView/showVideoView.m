@@ -780,6 +780,8 @@
         
     }else{  //第一次添加照片
         
+        [self.imgeArray removeAllObjects];
+        
         photoNumber = photoNumber + imageArray.count;
         
         [circleCollectionView.photoArray removeAllObjects];
