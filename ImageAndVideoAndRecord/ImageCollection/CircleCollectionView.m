@@ -128,7 +128,7 @@ static int deletePhotoTag;
     }
 }
 
--(void)deleteCurrentItem:(CircleCollectionViewCell *)item{
+-(NSInteger)deleteCurrentItem:(CircleCollectionViewCell *)item{
     
     NSIndexPath *indexPath = [self indexPathForCell:item];
     
@@ -142,6 +142,8 @@ static int deletePhotoTag;
     }
     
     [self reloadData];
+    
+    return indexPath.row;
     
 }
 

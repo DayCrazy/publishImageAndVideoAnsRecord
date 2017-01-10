@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
 @class CircleCollectionViewCell;
 @protocol CirCollectionViewCellDelegate <NSObject>
 
--(void)deleteCurrentItem:(CircleCollectionViewCell *)item;
+-(NSInteger)deleteCurrentItem:(CircleCollectionViewCell *)item;
 @end
 
 @interface CircleCollectionViewCell : UICollectionViewCell{

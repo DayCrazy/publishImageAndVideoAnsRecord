@@ -892,13 +892,13 @@
 #pragma mark 🎱 视频播放
 - (void)playerVideo:(KZVideoModel*)videoModel{
     
-    if (self.isRecord) {
-        
-//        [[LGAudioPlayer sharePlayer].audioPlayer stop];
-        
-        [[LGAudioPlayer sharePlayer] stopAudioPlayer];
-//        [self playRecordButtonAction:playButton];
-    }
+//    if (self.isRecord) {
+//        
+////        [[LGAudioPlayer sharePlayer].audioPlayer stop];
+//        
+//        [[LGAudioPlayer sharePlayer] stopAudioPlayer];
+////        [self playRecordButtonAction:playButton];
+//    }
     
     NSURL *videoUrl = [NSURL fileURLWithPath:videoModel.videoAbsolutePath];
     
@@ -1033,9 +1033,13 @@
     
     CircleCollectionViewCell *cell = (CircleCollectionViewCell*)sender.superview;
     
-    [cell.delegate deleteCurrentItem:cell];
+    //不会删掉imageArray里面数据
+//    [cell.delegate deleteCurrentItem:cell];
     
-    [self.imgeArray removeObject:cell.model];
+//    [self.imgeArray removeObject:cell.model];
+    
+    //新删除方法
+    [self.imgeArray removeObjectAtIndex:[cell.delegate deleteCurrentItem:cell]];
     
     photoNumber--;
     
