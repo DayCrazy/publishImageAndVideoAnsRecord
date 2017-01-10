@@ -8,8 +8,8 @@
 
 #import "showVideoView.h"
 
-//#import "organizeVC.h"
 #import "ViewController.h"
+#import "Masonry.h"
 
 #import "ZZCameraController.h"
 #import "ZZBrowserPickerViewController.h"
@@ -21,45 +21,32 @@
 #import "CircleCollectionViewCell.h"
 #import "CircleCellModel.h"
 #import "lame.h"
-#import "Masonry.h"
 #import "UIView+Size.h"
-
 
 #import "LGAudioKit.h"
 
-// 现在语音、视频、照片都可以添加了，删除没有测试，按钮消失后后面按钮也没有跟上//
-// 12月13日  语音、视频、照片上传基本可以了，最后添加语音时，布局重新做了，待测
+
 
 #define collectionViewHeight 60
 #define DocumentPath  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
-
+#define MAXIMAGENUMBER   6
 
 #define kScreenWidth      [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight     [UIScreen mainScreen].bounds.size.height
-
 
 @interface showVideoView () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,KZVideoViewControllerDelegate>
 
 @property (nonatomic, weak) NSTimer *timerOf60Second;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
-@property (nonatomic, assign)    BOOL isVideo;
-@property (nonatomic, assign)    BOOL isPhoto;
-@property (nonatomic, assign)    BOOL isRecord;
-
 @end
 
 @implementation showVideoView{
     
-
-    
-    UIViewController* superViewController;
+    ViewController* superViewController;
     CircleCollectionView* circleCollectionView;
     UIButton* playButton;
     CGFloat photoNumber;
-
-    
-
     
 }
 
@@ -68,7 +55,6 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
         
         [self initSubViews];
     }
@@ -83,9 +69,7 @@
         
         _isPhoto = isPhoto;
         
-        
         if (isPhoto) {
-            
             
             [_addVideoButton mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(_addImageButton.mas_left);
@@ -107,15 +91,10 @@
                     
                 }];
             }
-//            else{
-//                
-//                [circleCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                    
-//                    make.top.equalTo(self.mas_top);
-//                }];
-//            }
             
-//            self.height = self.height + circleCollectionView.height;
+            _addVideoButton.enabled = NO;
+            
+            [_addVideoButton setImage:[UIImage imageNamed:@"second_video_s"] forState:UIControlStateNormal];
             
         }else{
             
@@ -123,21 +102,22 @@
             
             _addImageButton.hidden = NO;
             
+            _addVideoButton.enabled = YES;
+            
+            [_addVideoButton setImage:[UIImage imageNamed:@"second_video_d"] forState:UIControlStateNormal];
+            
             //_addVideoButton 位置没变
             [_addVideoButton mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.equalTo(self.mas_bottom);
                 make.left.equalTo(_addImageButton.mas_right).offset(5);
-                make.width.mas_equalTo(70);
-                make.height.mas_equalTo(52);
+                make.width.mas_equalTo(78);
+                make.height.mas_equalTo(78);
             }];
-
+            
         }
         
     }
     
-//    [self changeSuperScrollViewContentSize:self.height];
-
-
 }
 
 - (void)setIsVideo:(BOOL)isVideo{
@@ -153,7 +133,7 @@
             [_addRecordButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(_addVideoButton.mas_left);
             }];
-
+            
             
             if (_isRecord) {
                 
@@ -166,8 +146,6 @@
                 
                 if (_isPhoto){
                     
-                    
-                    // circleCollectionView 位置没有更新
                     [circleCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
                         
                         make.left.equalTo(self.mas_left).offset(12);
@@ -187,24 +165,26 @@
                 }
                 
             }
-
+            
             _addVideoButton.hidden = YES;
+            
+            _addImageButton.enabled = NO;
+            [_addImageButton setImage:[UIImage imageNamed:@"second_img_s"] forState:UIControlStateNormal];
             
         }else{
             
             self.height = self.height - 80;
             
             _addVideoButton.hidden = NO;
-
+            
             [_addRecordButton mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
                 make.bottom.equalTo(self.mas_bottom);
                 make.left.equalTo(_addVideoButton.mas_right).offset(5);
-                make.width.mas_equalTo(70);
-                make.height.mas_equalTo(52);
+                make.width.mas_equalTo(78);
+                make.height.mas_equalTo(78);
             }];
-
-
+            
             if (_isRecord) {
                 
                 [playButton mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -238,11 +218,12 @@
                 
             }
             
+            _addImageButton.enabled = YES;
+            [_addImageButton setImage:[UIImage imageNamed:@"second_img_d"] forState:UIControlStateNormal];
+            
         }
     }
     
-//    [self changeSuperScrollViewContentSize:self.height];
-
     
 }
 
@@ -265,9 +246,9 @@
                 }];
                 
             }
-
+            
             if (_isPhoto) {
-
+                
                 [circleCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(playButton.mas_bottom).offset(10);
                     make.left.equalTo(self.mas_left).offset(12);
@@ -279,7 +260,7 @@
                         
                     }else{
                         make.height.mas_equalTo(60);
-
+                        
                     }
                 }];
                 
@@ -288,7 +269,7 @@
         }else{
             
             self.height = self.height - 62;
-
+            
             _addRecordButton.hidden = NO;
             
             if (_isPhoto) {
@@ -336,22 +317,9 @@
         
     }
     
-//    [self changeSuperScrollViewContentSize:self.height];
     
 }
 
-//- (void)changeSuperScrollViewContentSize:(CGFloat)height{
-//    
-//    if ([self.superview isKindOfClass:[UIScrollView class]]) {
-//        
-//        UIScrollView* superScrollView = (UIScrollView*)self.superview;
-//        
-//        superScrollView.contentSize = CGSizeMake(kScreenWidth,kScreenHeight-52 + height - 100);
-//        
-//    }
-//    
-////    superViewController.showScrollView.contentSize
-//}
 
 
 - (void)initSubViews{
@@ -409,7 +377,7 @@
         make.left.equalTo(self.mas_left).offset(12);
         make.right.equalTo(self.mas_right).offset(-12);
         make.height.mas_equalTo(60);
-//        make.top.equalTo(self.mas_top);
+        //        make.top.equalTo(self.mas_top);
     }];
     
     if (self.imgeArray == nil) {
@@ -431,7 +399,7 @@
     UIAlertAction* takePhotoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         ZZCameraController *cameraController = [[ZZCameraController alloc]init];
-        cameraController.takePhotoOfMax = 6;
+        cameraController.takePhotoOfMax = MAXIMAGENUMBER;
         
         cameraController.isSaveLocal = NO;
         [cameraController showIn:[self getParentviewController] result:^(id responseObject){
@@ -449,7 +417,7 @@
     UIAlertAction* choosePictureAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         ZZPhotoController *photoController = [[ZZPhotoController alloc]init];
-        photoController.selectPhotoOfMax = 6;
+        photoController.selectPhotoOfMax = MAXIMAGENUMBER;
         //设置相册中完成按钮旁边小圆点颜色。
         photoController.roundColor = [UIColor purpleColor];
         
@@ -469,7 +437,7 @@
     
     [[self getParentviewController] presentViewController:alertVC animated:YES completion:nil];
     
-
+    
 }
 
 #pragma mark 🎱添加视频
@@ -488,6 +456,12 @@
  *  开始录音
  */
 - (void)startRecordVoice{
+    
+    if (self.isVideo) {
+        
+        [_player stop];
+        
+    }
     __block BOOL isAllow = 0;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
@@ -602,7 +576,6 @@
 
 #pragma mark 🎱 显示录音
 - (void)sendSound {
-        
     
     self.messageModel = [[LGMessageModel alloc] init];
     self.messageModel.soundFilePath = [[LGSoundRecorder shareInstance] soundFilePath];
@@ -610,13 +583,14 @@
     
     NSLog(@"recorder sound file path %@",self.messageModel.soundFilePath);
     
-    self.messageModel.mp3FilePath = [self formatConversionToMp3];
-
+    //    self.messageModel.mp3FilePath = [self formatConversionToMp3];
+    self.messageModel.mp3FilePath = [self audio_PCMtoMP3];
+    
     
     playButton = [[UIButton alloc]initWithFrame:CGRectMake(12, 0, kScreenWidth-24, 52)];
     [playButton setTitle:[NSString stringWithFormat:@"%.0fs",self.messageModel.seconds]forState:UIControlStateNormal];
     [playButton setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
-    playButton.backgroundColor = [UIColor darkGrayColor];
+    playButton.backgroundColor = [UIColor lightGrayColor];
     playButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [playButton setImage:[UIImage imageNamed:@"sound"] forState:UIControlStateNormal];
     [playButton addTarget:self action:@selector(playRecordButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -629,7 +603,7 @@
         make.top.equalTo(self.mas_top);
     }];
     
-
+    
     UIButton* deletVideo  = [[UIButton alloc]initWithFrame:CGRectMake(playButton.width-50 , (playButton.height-25)/2, 25, 25)];
     [deletVideo setImage:[UIImage imageNamed:@"delete28"] forState:UIControlStateNormal];
     [playButton addSubview:deletVideo];
@@ -639,8 +613,8 @@
     
     //[self chanageCircleCollectonFrame];
     
-
-
+    
+    
 }
 
 #pragma mark 🎱 显示照片
@@ -656,6 +630,7 @@
         photoNumber = photoNumber + imageArray.count;
         
         [self deleteAddPhotoButton];
+        //        [self deleteAddVideoButton];
         
         //没有视频就是3张照片，若有视频就是2张
         if (photoNumber > 3) { // circleCollection变两行，刷新tableview
@@ -667,10 +642,11 @@
                 self.height = self.height + collectionViewHeight;
                 
             }
-        
-            if (photoNumber >= 6) {  //多次添加照片总数超过限制，截取7-self.imgeArray.count个元素拼接
+            
+            
+            if (photoNumber >= MAXIMAGENUMBER) {  //多次添加照片总数超过限制，截取7-self.imgeArray.count个元素拼接
                 
-                NSRange range = NSMakeRange(0, 6 - circleCollectionView.photoArray.count);
+                NSRange range = NSMakeRange(0, MAXIMAGENUMBER - circleCollectionView.photoArray.count);
                 NSArray* tempArray = [imageArray subarrayWithRange:range];
                 [self.imgeArray addObjectsFromArray:tempArray];
                 
@@ -701,10 +677,10 @@
                 }
                 
                 
-                photoNumber = 6;
+                photoNumber = MAXIMAGENUMBER;
                 
             }else{
-                 
+                
                 [self.imgeArray addObjectsFromArray:imageArray];
                 
                 for (int i = 0; i < imageArray.count; i++) {
@@ -780,7 +756,6 @@
         
     }else{  //第一次添加照片
         
-        [self.imgeArray removeAllObjects];
         
         photoNumber = photoNumber + imageArray.count;
         
@@ -795,10 +770,10 @@
         
         if (photoNumber > 3) { // circleCollection变两行，刷新tableview
             
-//            superViewController.photoHeight = 220;
+            //            superViewController.photoHeight = 220;
             
             circleCollectionHeight = collectionViewHeight*2;
-
+            
             
         }
         
@@ -826,7 +801,7 @@
             
         }
         
-        if ( photoNumber < 6 ) {
+        if ( photoNumber < MAXIMAGENUMBER ) {
             
             //最后放一张pluse
             CircleCellModel *cirModel = [[CircleCellModel alloc]init];
@@ -839,7 +814,7 @@
             
             //            if (photoNumber >= 7) {  //多次添加照片总数超过限制，截取7-self.imgeArray.count个元素拼接
             
-            NSRange range = NSMakeRange(0, 6 - circleCollectionView.photoArray.count);
+            NSRange range = NSMakeRange(0, MAXIMAGENUMBER - circleCollectionView.photoArray.count);
             NSArray* tempArray = [imageArray subarrayWithRange:range];
             [self.imgeArray addObjectsFromArray:tempArray];
             
@@ -875,7 +850,7 @@
         self.isPhoto = YES;
     }
     
-//    [self chanageCircleCollectonFrame];
+    //    [self chanageCircleCollectonFrame];
     
     [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -890,18 +865,13 @@
         }
     }];
     
-
-    
-//    [self refreshButtonFrame];
-    
     [circleCollectionView reloadData];
     
-
+    
 }
 
 #pragma mark 🎱 视频录制或选择后回调
 - (void)videoViewController:(KZVideoViewController *)videoController didRecordVideo:(KZVideoModel *)videoModel{
-
     
     [circleCollectionView reloadData];
     
@@ -916,12 +886,19 @@
     
     [self playerVideo:videoModel];
     
+    
 }
 
 #pragma mark 🎱 视频播放
 - (void)playerVideo:(KZVideoModel*)videoModel{
     
-
+    if (self.isRecord) {
+        
+//        [[LGAudioPlayer sharePlayer].audioPlayer stop];
+        
+        [[LGAudioPlayer sharePlayer] stopAudioPlayer];
+//        [self playRecordButtonAction:playButton];
+    }
     
     NSURL *videoUrl = [NSURL fileURLWithPath:videoModel.videoAbsolutePath];
     
@@ -943,168 +920,16 @@
         make.height.mas_equalTo(80);
     }];
     
-
-    
     UIButton* deletVideo  = [[UIButton alloc]initWithFrame:CGRectMake(_player.width-20 , 0, 20, 20)];
     [deletVideo setImage:[UIImage imageNamed:@"delete28"] forState:UIControlStateNormal];
     [_player addSubview:deletVideo];
     [deletVideo addTarget:self action:@selector(deleteVideoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [self chanageCircleCollectonFrame];
-
+    //    [self chanageCircleCollectonFrame];
+    
     self.isVideo = YES;
-
     
-}
-
-#pragma mark 🎱 隐藏视频播放控件
-- (void)deleteVideoButtonAction:(UIButton*)sender{
     
-//    sender.superview.hidden = YES;
-    
-    sender.superview.hidden = YES;
-    
-    self.isVideo = NO;
-    [_player stop];
-    _player.hidden = YES;
-    _player = nil;
-    [_player removeFromSuperview];
-    _videoModel = nil;
-
-}
-
-#pragma mark 🎱 语音播放
-- (void)playRecordButtonAction:(UIButton*)sender{
-    
-    [[LGAudioPlayer sharePlayer] playAudioWithURLString:self.messageModel.soundFilePath atIndex:0 withParentButton:sender];
-}
-
-#pragma mark 🎱 删除录音
-- (void)deleteRecordButtonAction:(UIButton*)sender{
-    
-    [playButton removeFromSuperview];
-    self.isRecord = NO;
-    
-    NSString *mp3FilePath = [DocumentPath stringByAppendingPathComponent:@"SoundFile"] ;
-
-    
-//    [[NSFileManager defaultManager] removeItemAtPath:self.messageModel.soundFilePath error:nil];
-    [[NSFileManager defaultManager] removeItemAtPath:mp3FilePath error:nil];
-    
-    [_addRecordButton setImage:[UIImage imageNamed:@"second_sounding_d"] forState:UIControlStateNormal];
-
-}
-
-#pragma mark 🎱 删除一张照片
-- (void)deleteCircleCollectionPhoto:(UIButton*)sender{
-    
-    CGFloat circleCollectonHeight = circleCollectionView.height;
-    
-    CircleCollectionViewCell *cell = (CircleCollectionViewCell*)sender.superview;
-    
-    [cell.delegate deleteCurrentItem:cell];
-
-    [self.imgeArray removeObject:cell.model];
-
-    photoNumber--;
-    
-    NSLog(@"%f",photoNumber);
-    
-    if (photoNumber == 0) {
-        
-        self.isPhoto = NO;
-//        [self refreshButtonFrame];
-        
-//        addImageButton.hidden = NO;
-        
-        circleCollectionView.hidden = YES;
-        
-//        if (isVideo) { //未添加视频
-//            
-//            _addVideoButton.hidden = NO;
-//        }
-//        
-    }else if (photoNumber == 3) {
-        
-        
-        circleCollectonHeight =  collectionViewHeight;
-        
-        self.height = self.height - collectionViewHeight;
-        
-//        [self changeSuperScrollViewContentSize:self.height];
-        
-        
-        //            _lineNumber = @"1";
-        
-        //
-        
-    }else if (photoNumber == 6){
-        
-        circleCollectonHeight = collectionViewHeight*2;
-        
-        NSMutableArray* photoArray = circleCollectionView.photoArray;
-        
-        CircleCellModel *cirModel = [[CircleCellModel alloc]init];
-        cirModel.photoImage = [UIImage imageNamed:@"plus"];
-        cirModel.state = CirModelStateAdd;
-        
-        if (self.isVideo) {
-            
-            [photoArray insertObject:cirModel atIndex:6];
-            
-        }else{
-            
-            [photoArray addObject:cirModel];
-            
-        }
-        
-        circleCollectionView.photoArray = photoArray;
-        
-    }
-    
-    [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-        make.height.mas_equalTo(circleCollectonHeight);
-    }];
-    ;
-    
-    [circleCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-    
-}
-
-
-
-#pragma mark 🎱 删除添加照片按钮➕
-- (void)deleteAddPhotoButton{
-    
-    for (CircleCellModel *circelModel in circleCollectionView.photoArray) {
-        
-        if (circelModel.state == CirModelStateAdd) {
-            
-            [circleCollectionView.photoArray removeObject:circelModel];
-            
-            return;
-        }
-    }
-}
-
-
-#pragma mark 🎱 获取父视图
-- (ViewController*)getViewController
-{
-    UIResponder *nextResponder =  self;
-    
-    do
-    {
-        nextResponder = [nextResponder nextResponder];
-        
-        if ([nextResponder isKindOfClass:[UIViewController class]])
-            //            return (issueViewController*)nextResponder;
-            return (ViewController*)nextResponder;
-        
-    } while (nextResponder != nil);
-    
-    return nil;
 }
 
 #pragma mark 🎱 mov格式转MP4
@@ -1158,22 +983,182 @@
     }
 }
 
+#pragma mark 🎱 隐藏视频播放控件
+- (void)deleteVideoButtonAction:(UIButton*)sender{
+    
+    //    sender.superview.hidden = YES;
+    
+    sender.superview.hidden = YES;
+    
+    self.isVideo = NO;
+    [_player stop];
+    _player.hidden = YES;
+    _player = nil;
+    [_player removeFromSuperview];
+    _videoModel = nil;
+    
+}
 
-#pragma mark 🎱 caf转mp3
-- (NSString*)formatConversionToMp3{
+#pragma mark 🎱 语音播放
+- (void)playRecordButtonAction:(UIButton*)sender{
+    
+    if ( self.isVideo) {
+        
+        [_player stop];
+    }
+    
+    [[LGAudioPlayer sharePlayer] playAudioWithURLString:self.messageModel.soundFilePath atIndex:0 withParentButton:sender];
+}
+
+#pragma mark 🎱 删除录音
+- (void)deleteRecordButtonAction:(UIButton*)sender{
+    
+    [playButton removeFromSuperview];
+    self.isRecord = NO;
+    
+    NSString *mp3FilePath = [DocumentPath stringByAppendingPathComponent:@"SoundFile"] ;
+    
+    
+    //    [[NSFileManager defaultManager] removeItemAtPath:self.messageModel.soundFilePath error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:mp3FilePath error:nil];
+    
+    [_addRecordButton setImage:[UIImage imageNamed:@"second_sounding_d"] forState:UIControlStateNormal];
+    
+}
+
+#pragma mark 🎱 删除一张照片
+- (void)deleteCircleCollectionPhoto:(UIButton*)sender{
+    
+    CGFloat circleCollectonHeight = circleCollectionView.height;
+    
+    CircleCollectionViewCell *cell = (CircleCollectionViewCell*)sender.superview;
+    
+    [cell.delegate deleteCurrentItem:cell];
+    
+    [self.imgeArray removeObject:cell.model];
+    
+    photoNumber--;
+    
+    NSLog(@"%f",photoNumber);
+    
+    if (photoNumber == 0) {
+        
+        self.isPhoto = NO;
+        //        [self refreshButtonFrame];
+        
+        //        addImageButton.hidden = NO;
+        
+        circleCollectionView.hidden = YES;
+        
+        //        if (isVideo) { //未添加视频
+        //
+        //            _addVideoButton.hidden = NO;
+        //        }
+        //
+    }else if (photoNumber == 3) {
+        
+        
+        circleCollectonHeight =  collectionViewHeight;
+        
+        self.height = self.height - collectionViewHeight;
+        
+        //        [self changeSuperScrollViewContentSize:self.height];
+        
+        
+        //            _lineNumber = @"1";
+        
+        //
+        
+    }else if (photoNumber == 5){
+        
+        circleCollectonHeight = collectionViewHeight*2;
+        
+        NSMutableArray* photoArray = circleCollectionView.photoArray;
+        
+        CircleCellModel *cirModel = [[CircleCellModel alloc]init];
+        cirModel.photoImage = [UIImage imageNamed:@"plus"];
+        cirModel.state = CirModelStateAdd;
+        
+        if (self.isVideo) {
+            
+            [photoArray insertObject:cirModel atIndex:6];
+            
+        }else{
+            
+            [photoArray addObject:cirModel];
+            
+        }
+        
+        circleCollectionView.photoArray = photoArray;
+        
+    }
+    
+    [circleCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(circleCollectonHeight);
+    }];
+    ;
+    
+    [circleCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+    
+}
+
+
+
+#pragma mark 🎱 删除添加照片按钮➕
+- (void)deleteAddPhotoButton{
+    
+    for (CircleCellModel *circelModel in circleCollectionView.photoArray) {
+        
+        if (circelModel.state == CirModelStateAdd) {
+            
+            [circleCollectionView.photoArray removeObject:circelModel];
+            
+            return;
+        }
+    }
+}
+
+
+
+
+#pragma mark 🎱 获取父视图
+- (ViewController*)getViewController
+{
+    UIResponder *nextResponder =  self;
+    
+    do
+    {
+        nextResponder = [nextResponder nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]])
+            //            return (issueViewController*)nextResponder;
+            return (ViewController*)nextResponder;
+        
+    } while (nextResponder != nil);
+    
+    return nil;
+}
+
+
+
+
+- (NSString*)audio_PCMtoMP3
+{
     
     NSString *cafFilePath = self.messageModel.soundFilePath;    //caf文件路径
     
     NSString* fileName = [NSString stringWithFormat:@"/voice-%5.2f.mp3", [[NSDate date] timeIntervalSince1970] ];//存储mp3文件的路径
     
-    NSString *mp3FilePath = [[DocumentPath stringByAppendingPathComponent:@"SoundFile"] stringByAppendingPathComponent:fileName];
+    NSString *mp3FileName = [[DocumentPath stringByAppendingPathComponent:@"SoundFile"] stringByAppendingPathComponent:fileName];
+    
     
     @try {
-        CGFloat read, write;
+        int read, write;
         
         FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
         fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
-        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
+        FILE *mp3 = fopen([mp3FileName cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
         
         const int PCM_SIZE = 8192;
         const int MP3_SIZE = 8192;
@@ -1208,23 +1193,19 @@
         NSLog(@"%@",[exception description]);
     }
     @finally {
-        
-        
+        //        self.audioFileSavePath = mp3FilePath;
+        NSLog(@"MP3生成成功: %@",mp3FileName);
     }
     
-    // 将caf 文件删除
-    [[NSFileManager defaultManager] removeItemAtPath:self.messageModel.soundFilePath error:nil];
-    
-    NSLog(@"mp3FilePath :: :::::≥≥≥®%@",mp3FilePath);
-    return  mp3FilePath;
+    return mp3FileName;
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

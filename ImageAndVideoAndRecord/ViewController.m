@@ -161,68 +161,96 @@
     }else{
         
         
-        //处理准备上传照片
-        for (int i = 0; i< showVideo.imgeArray.count; i++) {
+        if (showVideo.isPhoto) {
             
-            UIImage* image;
             
-            NSString* fileName;
-            
-            NSString* name;
-            
-            if ([showVideo.imgeArray[i] isKindOfClass:[ZZPhoto class]]) {
+            //处理准备上传照片
+            for (int i = 0; i< showVideo.imgeArray.count; i++) {
                 
-                ZZPhoto* model = showVideo.imgeArray[i];
+                UIImage* image;
                 
-                image = model.originImage;
+                NSString* fileName;
                 
-                NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
-                dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
+                NSString* name;
                 
-                fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
+                if ([showVideo.imgeArray[i] isKindOfClass:[ZZPhoto class]]) {
+                    
+                    ZZPhoto* model = showVideo.imgeArray[i];
+                    
+                    image = model.originImage;
+                    
+                    NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
+                    dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
+                    
+                    fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
+                    
+                }else if([showVideo.imgeArray[i] isKindOfClass:[ZZCamera class]]){
+                    
+                    ZZCamera* model = showVideo.imgeArray[i];
+                    
+                    image = model.image;
+                    
+                    NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
+                    dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
+                    
+                    fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
+                    
+                }else{
+                    
+                    UIImage* tempImage = showVideo.imgeArray[i];
+                    
+                    image = tempImage;
+                    
+                    fileName = [NSString stringWithFormat:@"goodsImageFielName%d.jpg",i];
+                    
+                }
                 
-            }else if([showVideo.imgeArray[i] isKindOfClass:[ZZCamera class]]){
+                name = [NSString stringWithFormat:@"GoodsImage%d.jpg",i];
                 
-                ZZCamera* model = showVideo.imgeArray[i];
+                NSData *imageData = UIImageJPEGRepresentation(image,0.7);
                 
-                image = model.image;
-                
-                NSDateFormatter* dateFor = [[NSDateFormatter alloc]init];
-                dateFor.dateFormat = @"yyyyMMddHHmmssSSS";
-                
-                fileName = [NSString stringWithFormat:@"%@.jpg",[dateFor stringFromDate:model.createDate]];
-                
-            }else{
-                
-                UIImage* tempImage = showVideo.imgeArray[i];
-                
-                image = tempImage;
-                
-                fileName = [NSString stringWithFormat:@"goodsImageFielName%d.jpg",i];
+                NSDictionary* dic = @{@"fileData":imageData,@"name":name,@"fileName":fileName,@"mimeType":@"image/jpg"};
+                [_imageUrlArray addObject:dic];
                 
             }
+        }
+        
+        if (showVideo.isVideo) {
             
-            name = [NSString stringWithFormat:@"GoodsImage%d.jpg",i];
-            
-            NSData *imageData = UIImageJPEGRepresentation(image,0.7);
-            
-            NSDictionary* dic = @{@"fileData":imageData,@"name":name,@"fileName":fileName,@"mimeType":@"image/jpg"};
-            [_imageUrlArray addObject:dic];
+            if(showVideo.videoModel){
+                
+                //处理准备上传视频
+                NSURL* url = [NSURL fileURLWithPath:showVideo.videoModel.videoAbsolutePath];
+                NSData* videoData = [NSData dataWithContentsOfURL:url];
+                
+                if (videoData) {
+                    
+                    NSDictionary* dic = @{@"fileData":videoData,@"name":@"GoodsVideo",@"fileName":@"Video.mp4",@"mimeType":@"video/mp4"};
+                    [_imageUrlArray addObject:dic];
+                }
+            }
             
         }
         
-        if(showVideo.videoModel){
+        
+        if (showVideo.isRecord) {
             
-            //处理准备上传视频
-            NSURL* url = [NSURL fileURLWithPath:showVideo.videoModel.videoAbsolutePath];
-            NSData* videoData = [NSData dataWithContentsOfURL:url];
-            
-            if (videoData) {
+            if (showVideo.messageModel) {
                 
-                NSDictionary* dic = @{@"fileData":videoData,@"name":@"GoodsVideo",@"fileName":@"GoodsVideo.mp4",@"mimeType":@"video/mp4"};
+                NSURL* url = [NSURL fileURLWithPath:showVideo.messageModel.mp3FilePath];
+                
+                NSData* recordData = [NSData dataWithContentsOfURL:url];
+                
+                NSDictionary* dic = @{@"fileData":recordData,@"name":@"GoodsRecord",@"fileName":@"Record.mp3",@"mimeType":@"video/mp3"};
+                
+                
                 [_imageUrlArray addObject:dic];
+                
             }
+            
         }
+        
+        
         
         
         return YES;
