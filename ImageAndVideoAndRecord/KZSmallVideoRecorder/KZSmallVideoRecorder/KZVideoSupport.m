@@ -8,6 +8,7 @@
 
 #import "KZVideoSupport.h"
 #import "KZVideoConfig.h"
+#define kScreenWidth      [UIScreen mainScreen].bounds.size.width
 
 #pragma mark - Custom View --
 
@@ -19,6 +20,10 @@
     KZVideoViewShowType _style;
     
     UIButton *_cancelBtn;
+    
+    UIButton *_changeCameraBtn;
+    
+    UIButton *_changeFlashBtn;
 }
 - (instancetype)initWithFrame:(CGRect)frame style:(KZVideoViewShowType)style; {
     if (self = [super initWithFrame:frame]) {
@@ -33,14 +38,38 @@
     [_cancelBtn removeFromSuperview];
     
     _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _cancelBtn.frame = CGRectMake(10, 22, 50, 40);
-    [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    _cancelBtn.frame = CGRectMake(10, 18, 48, 48);
+    [_cancelBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [_cancelBtn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
     [_cancelBtn setTitleColor:kzThemeTineColor forState:UIControlStateNormal];
     _cancelBtn.alpha = 0.8;
     [self addSubview:_cancelBtn];
 }
 
+- (void)addChangeCameraSegmentedControlClick:(id)target selector:(SEL)selector{
+    
+    [_changeCameraBtn removeFromSuperview];
+    
+    _changeCameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _changeCameraBtn.frame = CGRectMake(kScreenWidth-58, 18, 48, 48);
+    [_changeCameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+    [_changeCameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateSelected];    [_changeCameraBtn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+    _changeCameraBtn.alpha = 0.9;
+    [self addSubview:_changeCameraBtn];
+    
+}
+
+- (void)addFlashTarget:(id)target selector:(SEL)selector {
+    [_changeFlashBtn removeFromSuperview];
+    
+    _changeFlashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _changeFlashBtn.frame = CGRectMake(kScreenWidth-142, 18, 48, 48);
+    [_changeFlashBtn setImage:[UIImage imageNamed:@"flash_d"] forState:UIControlStateNormal];
+    [_changeFlashBtn setImage:[UIImage imageNamed:@"flash_s"] forState:UIControlStateSelected];
+    [_changeFlashBtn addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+    _changeFlashBtn.alpha = 1.0;
+    [self addSubview:_changeFlashBtn];
+}
 - (void)setupSubLayers {
     
     if (_style == KZVideoViewShowTypeSingle) {

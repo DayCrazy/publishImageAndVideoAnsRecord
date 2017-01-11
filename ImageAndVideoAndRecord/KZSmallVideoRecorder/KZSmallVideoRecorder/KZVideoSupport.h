@@ -15,7 +15,14 @@
 
 - (instancetype)initWithFrame:(CGRect)frame style:(KZVideoViewShowType)style;
 
+//取消录制
 - (void)addCancelTarget:(id)target selector:(SEL)selector;
+
+//更改前后摄像头
+- (void)addChangeCameraSegmentedControlClick:(id)target selector:(SEL)selector;
+
+//更改闪光灯
+- (void)addFlashTarget:(id)target selector:(SEL)selector;
 
 @property (nonatomic, assign) BOOL isRecoding;
 

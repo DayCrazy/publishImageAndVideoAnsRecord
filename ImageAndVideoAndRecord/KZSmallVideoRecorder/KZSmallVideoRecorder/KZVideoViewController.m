@@ -43,6 +43,7 @@
     
     KZVideoModel *_currentRecord;
     BOOL _currentRecordIsCancel;
+    BOOL isUsingFrontFacingCamera;
     UIView *_eyeView;
 }
 
@@ -94,6 +95,80 @@ static KZVideoViewController *__currentVideoVC = nil;
     }];
 }
 
+
+-(void)fanzhuanShexiangtou:(UIButton *)sender{
+    AVCaptureDevicePosition desiredPosition;
+    if (sender.selected ){
+        desiredPosition = AVCaptureDevicePositionBack;
+    }else{
+        desiredPosition = AVCaptureDevicePositionFront;
+    }
+    sender.selected = !sender.selected;
+    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if ([d position] == desiredPosition) {
+            [_videoPreLayer.session beginConfiguration];
+            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+            for (AVCaptureInput *oldInput in _videoPreLayer.session.inputs) {
+                [[_videoPreLayer session] removeInput:oldInput];
+            }
+            [_videoPreLayer.session addInput:input];
+            [_videoPreLayer.session commitConfiguration];
+            break;
+        }
+    }
+}
+
+-(void)startOrPauseShanGuangDeng:(UIButton *)sender{
+    if (sender.isSelected == YES) { //打开闪光灯
+        AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        NSError *error = nil;
+        
+        if ([captureDevice hasTorch]) {
+            BOOL locked = [captureDevice lockForConfiguration:&error];
+            if (locked) {
+                captureDevice.torchMode = AVCaptureTorchModeOn;
+                [captureDevice unlockForConfiguration];
+            }
+        }
+    }else{//关闭闪光灯
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if ([device hasTorch]) {
+            [device lockForConfiguration:nil];
+            [device setTorchMode: AVCaptureTorchModeOff];
+            [device unlockForConfiguration];
+        }
+    }
+    sender.selected = !sender.selected;
+}
+
+- (void)changeCameraSegmentedControlClick{
+    
+//    NSLog(@"%ld",(long)sender.selectedSegmentIndex);
+    
+    AVCaptureDevicePosition desiredPosition;
+    if (isUsingFrontFacingCamera){
+        desiredPosition = AVCaptureDevicePositionBack;
+    }else{
+        desiredPosition = AVCaptureDevicePositionFront;
+    }
+    
+    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if ([d position] == desiredPosition) {
+            [_videoPreLayer.session beginConfiguration];
+            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+            for (AVCaptureInput *oldInput in _videoPreLayer.session.inputs) {
+                [[_videoPreLayer session] removeInput:oldInput];
+            }
+            [_videoPreLayer.session addInput:input];
+            [_videoPreLayer.session commitConfiguration];
+            break;
+        }
+    }
+    
+    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
+}
+
+
 - (void)closeView {
     [_videoSession stopRunning];
     [_videoPreLayer removeFromSuperlayer];
@@ -141,7 +216,11 @@ static KZVideoViewController *__currentVideoVC = nil;
     _topSlideView = [[KZStatusBar alloc] initWithFrame:CGRectMake(0, 0, allWidth, topHeight) style:_showType];
     if (!isSmallStyle) {
         [_topSlideView addCancelTarget:self selector:@selector(endAniamtion)];
+        
+        [_topSlideView addChangeCameraSegmentedControlClick:self selector:@selector(fanzhuanShexiangtou:)];
+        [_topSlideView addFlashTarget:self selector:@selector(startOrPauseShanGuangDeng:)];
     }
+    
     [self.actionView addSubview:_topSlideView];
     
     
@@ -372,6 +451,7 @@ static KZVideoViewController *__currentVideoVC = nil;
 - (void)ctrollVideoDidStart:(KZControllerBar *)controllerBar {
     _currentRecord = [KZVideoUtil createNewVideo];
     _currentRecordIsCancel = NO;
+    isUsingFrontFacingCamera = YES;
     NSURL *outURL = [NSURL fileURLWithPath:_currentRecord.videoAbsolutePath];
     [self createWriter:outURL];
     
@@ -503,6 +583,7 @@ static KZVideoViewController *__currentVideoVC = nil;
     NSDictionary *codecSettings = @{
                                     AVVideoAverageBitRateKey:@(960000),
                                     AVVideoMaxKeyFrameIntervalKey:@(1),
+                                    AVVideoAllowFrameReorderingKey:@NO,
                                     AVVideoProfileLevelKey:AVVideoProfileLevelH264Baseline31,
                                     AVVideoCleanApertureKey: videoCleanApertureSettings,
                                     AVVideoPixelAspectRatioKey:videoAspectRatioSettings
@@ -513,7 +594,7 @@ static KZVideoViewController *__currentVideoVC = nil;
                           AVVideoWidthKey : @(videoHeight),
                           AVVideoHeightKey : @(videoWidth),
                           AVVideoScalingModeKey:AVVideoScalingModeResizeAspectFill,
-//                          AVVideoCompressionPropertiesKey:codecSettings
+                          AVVideoCompressionPropertiesKey:codecSettings
                           };
     _assetWriterVideoInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:outputSettings];
     _assetWriterVideoInput.expectsMediaDataInRealTime = YES;
