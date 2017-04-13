@@ -76,6 +76,8 @@
 		8829A5E61E1CF1010023362D /* ZZPhotoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5C01E1CF1010023362D /* ZZPhotoListCell.m */; };
 		8829A5E71E1CF1010023362D /* ZZPhotoPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5C21E1CF1010023362D /* ZZPhotoPickerCell.m */; };
 		8829A5EB1E1CF5350023362D /* UIView+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 8829A5EA1E1CF5350023362D /* UIView+Size.m */; };
+		88827CFF1E9F2C33003B33B2 /* determiner_s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88827CFD1E9F2C33003B33B2 /* determiner_s@2x.png */; };
+		88827D001E9F2C33003B33B2 /* determiner_s@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88827CFE1E9F2C33003B33B2 /* determiner_s@3x.png */; };
 		88C7C78F1E1E4587005CE0A2 /* KZVideoConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7841E1E4587005CE0A2 /* KZVideoConfig.m */; };
 		88C7C7901E1E4587005CE0A2 /* KZVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7861E1E4587005CE0A2 /* KZVideoListViewController.m */; };
 		88C7C7911E1E4587005CE0A2 /* KZVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C7881E1E4587005CE0A2 /* KZVideoPlayer.m */; };
@@ -220,6 +222,8 @@
 		8829A5C31E1CF1010023362D /* ZZPhotoKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZPhotoKit.h; sourceTree = "<group>"; };
 		8829A5E91E1CF5350023362D /* UIView+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Size.h"; sourceTree = "<group>"; };
 		8829A5EA1E1CF5350023362D /* UIView+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Size.m"; sourceTree = "<group>"; };
+		88827CFD1E9F2C33003B33B2 /* determiner_s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "determiner_s@2x.png"; sourceTree = "<group>"; };
+		88827CFE1E9F2C33003B33B2 /* determiner_s@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "determiner_s@3x.png"; sourceTree = "<group>"; };
 		88C7C7831E1E4587005CE0A2 /* KZVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoConfig.h; sourceTree = "<group>"; };
 		88C7C7841E1E4587005CE0A2 /* KZVideoConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZVideoConfig.m; sourceTree = "<group>"; };
 		88C7C7851E1E4587005CE0A2 /* KZVideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZVideoListViewController.h; sourceTree = "<group>"; };
@@ -528,6 +532,8 @@
 		8829A5821E1CF1010023362D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				88827CFD1E9F2C33003B33B2 /* determiner_s@2x.png */,
+				88827CFE1E9F2C33003B33B2 /* determiner_s@3x.png */,
 				8829A5831E1CF1010023362D /* back_button_normal.png */,
 				8829A5841E1CF1010023362D /* camera_focus_pic.png */,
 				8829A5851E1CF1010023362D /* change_camera_pic.png */,
@@ -778,7 +784,7 @@
 				TargetAttributes = {
 					8829A4F71E1CEA2B0023362D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6P6AU364B7;
+						DevelopmentTeam = BQTRH34XZT;
 						ProvisioningStyle = Automatic;
 					};
 					8829A5101E1CEA2B0023362D = {
@@ -844,7 +850,9 @@
 				8829A5701E1CEBD60023362D /* toast_vol_4@2x.png in Resources */,
 				8829A5D31E1CF1010023362D /* zz_alumb_rightCell.png in Resources */,
 				8829A5731E1CEBD60023362D /* toast_vol_7@2x.png in Resources */,
+				88827CFF1E9F2C33003B33B2 /* determiner_s@2x.png in Resources */,
 				8829A56B1E1CEBD60023362D /* toast_microphone@2x.png in Resources */,
+				88827D001E9F2C33003B33B2 /* determiner_s@3x.png in Resources */,
 				8829A5CE1E1CF1010023362D /* select_no.png in Resources */,
 				8829A5D01E1CF1010023362D /* take_photo_pic.png in Resources */,
 				8829A56F1E1CEBD60023362D /* toast_vol_3@2x.png in Resources */,
@@ -1109,7 +1117,7 @@
 			baseConfigurationReference = FE0396BDF5D191BEBE26A265 /* Pods-ImageAndVideoAndRecord.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6P6AU364B7;
+				DEVELOPMENT_TEAM = BQTRH34XZT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1129,7 +1137,7 @@
 			baseConfigurationReference = 97E234052266FA0154283831 /* Pods-ImageAndVideoAndRecord.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6P6AU364B7;
+				DEVELOPMENT_TEAM = BQTRH34XZT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

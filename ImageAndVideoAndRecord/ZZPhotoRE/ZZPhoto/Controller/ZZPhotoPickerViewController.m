@@ -245,6 +245,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = self.backBtn;
     self.navigationItem.rightBarButtonItem = self.cancelBtn;
+    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
 }
 
 -(void)setUpTabbar

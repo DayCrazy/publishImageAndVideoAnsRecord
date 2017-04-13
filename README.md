@@ -2,7 +2,7 @@
 
 效果图
 
-![](/Users/lidanyang/Desktop/ImageAndVideoAndRecord/ImageGif.gif)
+![Image text](https://github.com/DayCrazy/publishImageAndVideoAnsRecord/blob/master/ImageGif.gif)
 
 ##import "ViewController.m"
  	PlaceholderTextView* titleTexView;  // placeHolder的textView，
