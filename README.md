@@ -2,7 +2,7 @@
 
 效果图
 
-![Image text](https://github.com/DayCrazy/publishImageAndVideoAnsRecord/blob/master/ImageFolder/WechatIMG63.jpg)
+![](https://github.com/DayCrazy/publishImageAndVideoAnsRecord/blob/master/ImageFolder/ImageGif.gif)
 
 ##import "ViewController.m"
  	PlaceholderTextView* titleTexView;  // placeHolder的textView，
