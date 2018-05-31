@@ -784,7 +784,7 @@
 				TargetAttributes = {
 					8829A4F71E1CEA2B0023362D = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = BQTRH34XZT;
+						DevelopmentTeam = 6P6AU364B7;
 						ProvisioningStyle = Automatic;
 					};
 					8829A5101E1CEA2B0023362D = {
@@ -1117,17 +1117,17 @@
 			baseConfigurationReference = FE0396BDF5D191BEBE26A265 /* Pods-ImageAndVideoAndRecord.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BQTRH34XZT;
+				DEVELOPMENT_TEAM = 6P6AU364B7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImageAndVideoAndRecord/LGSound/lame",
 					"$(PROJECT_DIR)/ImageAndVideoAndRecord/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yinglai.ImageAndVideoAndRecord;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldy.ImageAndVideoAndRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1137,17 +1137,17 @@
 			baseConfigurationReference = 97E234052266FA0154283831 /* Pods-ImageAndVideoAndRecord.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BQTRH34XZT;
+				DEVELOPMENT_TEAM = 6P6AU364B7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ImageAndVideoAndRecord/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ImageAndVideoAndRecord/LGSound/lame",
 					"$(PROJECT_DIR)/ImageAndVideoAndRecord/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yinglai.ImageAndVideoAndRecord;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldy.ImageAndVideoAndRecord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
