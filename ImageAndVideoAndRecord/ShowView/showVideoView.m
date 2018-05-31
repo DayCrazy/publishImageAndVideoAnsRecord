@@ -91,7 +91,7 @@
                     
                 }];
             }
-            
+//           添加视频按钮可以使用
             _addVideoButton.enabled = NO;
             
             [_addVideoButton setImage:[UIImage imageNamed:@"second_video_s"] forState:UIControlStateNormal];

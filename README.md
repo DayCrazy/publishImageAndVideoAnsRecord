@@ -457,4 +457,11 @@
     return  mp3FilePath;
     }
 
-
+#TIP:
+之前设定的是照片和视频不能同时发布，但是布局和逻辑已经做好了，如果需要可以修改showVideoView.m中
+	
+	- (void)setIsPhoto:(BOOL)isPhoto;
+	//添加视频按钮可以使用
+	_addVideoButton.enabled = NO;
+    [_addVideoButton setImage:[UIImage imageNamed:@"second_video_s"] forState:UIControlStateNormal];
+ 注释掉就可以了

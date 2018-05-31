@@ -232,7 +232,6 @@
             
         }
         
-        
         if (showVideo.isRecord) {
             
             if (showVideo.messageModel) {
